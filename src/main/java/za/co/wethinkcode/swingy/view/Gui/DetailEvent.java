@@ -1,4 +1,4 @@
-package za.co.wethinkcode.swingy.view;
+package za.co.wethinkcode.swingy.view.Gui;
 
 import java.util.EventObject;
 

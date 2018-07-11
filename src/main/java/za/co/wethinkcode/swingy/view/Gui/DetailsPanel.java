@@ -1,4 +1,7 @@
-package za.co.wethinkcode.swingy.view;
+package za.co.wethinkcode.swingy.view.Gui;
+
+import za.co.wethinkcode.swingy.view.Gui.DetailEvent;
+import za.co.wethinkcode.swingy.view.Gui.DetailListener;
 
 import javax.swing.*;
 import javax.swing.event.EventListenerList;
@@ -15,13 +18,17 @@ public class DetailsPanel extends JPanel {
         size.width = 250;
         setPreferredSize(size);
 
-        setBorder(BorderFactory.createTitledBorder("Personal Details"));
+        setBorder(BorderFactory.createTitledBorder("Choose your character"));
 
         JLabel nameLabel = new JLabel("Name: ");
-        JLabel occupationLabel = new JLabel("Occupation: ");
+        final JLabel typeLabel = new JLabel("Type: ");
 
         final JTextField nameField = new JTextField(10);
-        final JTextField occupationField = new JTextField(10);
+        final JComboBox<String> types = new JComboBox();
+
+        types.addItem("Sorcerer");
+        types.addItem("Monk");
+        types.addItem("Scout");
 
         JButton addBtn = new JButton("Add");
 
@@ -29,11 +36,32 @@ public class DetailsPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String name = nameField.getText();
-                String occupation = occupationField.getText();
+                String type = types.getSelectedItem().toString();
 
-                String text = name + ": " + occupation + "\n";
+                String text = name + ": " + type + "\n";
 
                 fireDetailEvent(new DetailEvent(this, text));
+            }
+        });
+
+        types.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String text;
+                switch (types.getSelectedItem().toString().toLowerCase()) {
+                    case "sorcerer":
+                        text = "Sorcerer:\n hp: 10\natk: 20 \ndef:12\n";
+                        fireDetailEvent(new DetailEvent(this, text));
+                        break;
+                    case "monk":
+                        text = "Monk:\n hp: 10\natk: 20 \ndef:12\n";
+                        fireDetailEvent(new DetailEvent(this, text));
+                        break;
+                    case "scout":
+                        text = "Scout:\n hp: 10\natk: 20 \ndef:12\n";
+                        fireDetailEvent(new DetailEvent(this, text));
+                        break;
+                }
             }
         });
 
@@ -54,7 +82,7 @@ public class DetailsPanel extends JPanel {
 
         gc.gridx = 0;
         gc.gridy = 1;
-        add(occupationLabel, gc);
+        add(typeLabel, gc);
 
         gc.anchor = GridBagConstraints.LINE_START;
         gc.gridx = 1;
@@ -63,7 +91,7 @@ public class DetailsPanel extends JPanel {
 
         gc.gridx = 1;
         gc.gridy = 1;
-        add(occupationField, gc);
+        add(types, gc);
 
         //FINAL ROW
         gc.weighty = 10;

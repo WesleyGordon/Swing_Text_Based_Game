@@ -1,4 +1,8 @@
-package za.co.wethinkcode.swingy.view;
+package za.co.wethinkcode.swingy.view.Gui;
+
+import za.co.wethinkcode.swingy.view.Gui.DetailEvent;
+import za.co.wethinkcode.swingy.view.Gui.DetailListener;
+import za.co.wethinkcode.swingy.view.Gui.DetailsPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,15 +23,14 @@ public class MainFrame extends JFrame {
 
         //Create Swing Component
         final JTextArea textArea = new JTextArea();
-        JButton button = new JButton("Click Me");
+        JButton button = new JButton("Start Game");
 
         detailsPanel = new DetailsPanel();
 
         detailsPanel.addDetailListener(new DetailListener() {
             public void detailEventOccurred(DetailEvent event){
                 String text = event.getText();
-
-                textArea.append(text);
+                textArea.setText(text);
 
             }
         });
@@ -47,8 +50,11 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 textArea.append("Hello\n");
+                detailsPanel.setVisible(false);
             } //this is an interface
 
         });
     }
+
+
 }

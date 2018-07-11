@@ -1,18 +1,26 @@
 package za.co.wethinkcode.swingy.model;
 
-import za.co.wethinkcode.swingy.model.artifacts.*;
+import lombok.Getter;
+import lombok.Setter;
 
-public class Character {
-    private String name;
-    private String type; //class
-    private int level;
-    private int exp;
+@Getter
+@Setter
+public abstract class Character {
+    protected String name;
+    protected String type; //class
+    protected int attack;
+    protected int defence;
+    protected int hp;
+    protected int x;
+    protected int y;
+    protected int level;
+    protected int exp;
 
-    public void Character(String name, String type, int level, int exp, Weapon weapon, Armour armour){
-        this.name = name;
-        this.type = type;
-        this.level = level;
-        this.exp = exp;
+    public void Character(){
+
 
     }
+
+    abstract public void attack(Character character);
+    abstract public void defend(Character character, int damage);
 }
