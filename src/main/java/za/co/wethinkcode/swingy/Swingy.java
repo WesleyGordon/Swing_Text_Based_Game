@@ -1,5 +1,6 @@
 package za.co.wethinkcode.swingy;
 
+import za.co.wethinkcode.swingy.view.Battle;
 import za.co.wethinkcode.swingy.view.Cli.CliView;
 import za.co.wethinkcode.swingy.view.Gui.GuiView;
 import za.co.wethinkcode.swingy.view.Gui.MainFrame;
@@ -8,8 +9,11 @@ import javax.swing.SwingUtilities;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class main {
+    public static PrintWriter writer;
+
     public static void main(String[] args){
 
 //        try {
@@ -26,7 +30,9 @@ public class main {
 //        }catch (IOException e){
 //
 //        }
+
         try {
+            writer
         switch(args[0].toLowerCase())
         {
             case "console":
@@ -37,19 +43,8 @@ public class main {
                 break;
         }
         }catch(Exception e){
+            System.out.println(e.toString());
             System.out.println("There was an error in the program");
         }
-
-//
-//        SwingUtilities.invokeLater(new Runnable(){
-//            public void run() {
-//                JFrame jFrame = new MainFrame("HELLO WORLD");
-//                jFrame.setSize(500, 400);
-//                jFrame.setDefaultCloseOperation(jFrame.EXIT_ON_CLOSE);
-//                jFrame.setVisible(true);
-//            }
-//        });
-
-
     }
 }
