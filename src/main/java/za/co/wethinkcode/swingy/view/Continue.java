@@ -5,6 +5,10 @@ import javax.swing.*;
 public class continue_class {
     private JButton selectButton;
     private JButton backButton;
-    private JSpinner spinner1;
-    private JTextArea textArea1;
+
+    private JSpinner selectSpinner;
+
+    private JTextArea savedGames;
+
+    private JPanel rootPanelContinue;
 }
