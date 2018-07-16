@@ -1,0 +1,2 @@
+Wesley the Spellcaster,Sorcerer,1,1,iron staff,leather armor
+Ben The Bad,Monk,1,1,wooden staff,iron armor

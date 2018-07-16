@@ -14,7 +14,7 @@ public abstract class Character {
     protected int x;
     protected int y;
     protected int level;
-    protected int exp;
+    protected int xp;
 
     public void Character(){
 

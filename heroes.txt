@@ -1,0 +1,11 @@
+Wesley the Spellcaster,Sorcerer,1,1,iron staff,leather armor
+pieter ,Sorcerer,Wooden Magical Staff,Leather Vest,Leather Hood
+Ben The Bad,Monk,5,14,wooden staff,iron armor,
+Sorcerer,Wooden Magical Staff,Leather Vest,Leather Hood
+ben,Sorcerer,Wooden Magical Staff,Leather Vest,Leather Hood
+hello,Sorcerer,Wooden Magical Staff,Leather Vest,Leather Hood
+,Sorcerer,Wooden Magical Staff,Leather Vest,Leather Hood
+,Sorcerer,Wooden Magical Staff,Leather Vest,Leather Hood
+,Sorcerer,Wooden Magical Staff,Leather Vest,Leather Hood
+hi,Monk,Wooden Mace,Robe,
+,Sorcerer,Wooden Magical Staff,Leather Vest,Leather Hood
