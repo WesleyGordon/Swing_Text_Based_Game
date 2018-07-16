@@ -1,0 +1,3 @@
+Wesley the Spellcaster,Sorcerer,1,1,iron staff,leather armor,null
+pieter ,Sorcerer,1,1,Wooden Magical Staff,Leather Vest,Leather Hood
+wesley The coder,Monk,999,14,wooden staff,iron armor,null
