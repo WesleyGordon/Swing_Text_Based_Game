@@ -50,8 +50,6 @@ public class Start extends JFrame{
                GuiView.startGame();
                Game gamePanel = new Game();
                setVisible(false);
-               writer.close();
-
            }
 
        });

@@ -37,20 +37,15 @@ public class Main {
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader("heroes.txt"));
-            String line = reader.readLine();
-            if (line != null) {
+            String line;
                 while ((line = reader.readLine()) != null) {
                     Hero hero = Hero.newHero(line.split(",")[0], line.split(",")[1],
                             Integer.parseInt(line.split(",")[2]), Integer.parseInt(line.split(",")[3]),
                             line.split(",")[4], line.split(",")[5], line.split(",")[6]);
                     heroList.add(hero);
                 }
-
-            }
         }catch (IOException e){
 
         }
-        Hero chara = new Monk();
-        heroList.add(chara);
     }
 }

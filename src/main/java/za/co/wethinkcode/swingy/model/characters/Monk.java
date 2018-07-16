@@ -7,17 +7,14 @@ import za.co.wethinkcode.swingy.model.Character;
 @Getter
 @Setter
 public class Monk extends Hero{
-    private String weapon = "Wooden Mace";
-    private String armour = "Robe";
-    private String helm = "";
 
     Monk(String name){
-        super(name);
+        super(name, "Wooden Mace", "Robe", "", 20, 35);
     }
 
     Monk(String name, int level, int xp, String weapon, String armour, String helm)
     {
-        super(name, level, xp, weapon, armour, helm);
+        super(name, level, xp, weapon, armour, helm, 20, 35);
     }
 
     @Override

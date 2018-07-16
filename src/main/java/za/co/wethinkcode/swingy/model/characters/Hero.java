@@ -16,19 +16,26 @@ public abstract class Hero extends Character {
 
     }
 
-    Hero(String name){
+    Hero(String name, String weapon, String armour, String helm, int attack, int defence){
         this.name = name;
         this.xp = 0;
         this.level = 1;
+        this.weapon = weapon;
+        this.armour = armour;
+        this.helm = helm;
+        this.attack = attack;
+        this.defence = defence;
     }
 
-    Hero(String name, int level, int xp, String weapon, String armour, String helm){
+    Hero(String name, int level, int xp, String weapon, String armour, String helm, int attack, int defence){
         this.name = name;
         this.level = level;
         this.xp = xp;
         this.weapon = weapon;
         this.armour = armour;
         this.helm = helm;
+        this.attack = attack + level;
+        this.defence = defence + level;
     }
 
     public static Hero newHero(String name, String type, int level, int xp, String weapon, String armour, String helm){
