@@ -1,0 +1,10 @@
+Wesley,Sorcerer,1,453,Iron Staff,Leather Armour,Leather Helm
+Eduard,Scout,6,133,Wooden Magical Staff,Leather Vest,Leather Hood
+Zak,Monk,3,456,Wooden Staff,Iron Armour,Material Hood
+Weslye,Scout,1,0,Wooden dagger,Leather vest,Leather helm
+pieter,Sorcerer,1,0,Wooden wand,Leather chest plate,Leather hat
+wesley,Sorcerer,1,0,Wooden wand,Leather chest plate,Leather hat
+ellol,Monk,1,0,Wooden Mace,Robe,Material hood
+ASD,Sorcerer,1,0,Wooden wand,Leather chest plate,Leather hat
+EE,Sorcerer,1,0,Wooden wand,Leather chest plate,Leather hat
+ahahahahahhahahahhahaha,Sorcerer,1,0,Wooden wand,Leather chest plate,Leather hat
