@@ -2,7 +2,7 @@ package za.co.wethinkcode.swingy.controller;
 
 import za.co.wethinkcode.swingy.model.characters.Enemy;
 import za.co.wethinkcode.swingy.model.characters.Hero;
-import za.co.wethinkcode.swingy.view.Start;
+import za.co.wethinkcode.swingy.view.Map;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,24 +10,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class MainGameController {
     public static List<Hero> heroList = new ArrayList<Hero>();
     public static List<Enemy> enemyList = new ArrayList<>();
     public static Hero player;
-    public Save save = new Save();
+    public static Save save = new Save();
 
     public static void GUIrun(){
         StartController startController = new StartController();
     }
 
     public static void CLIrun(){
-        //
-
+        CliController.start();
     }
 
     public static void readToList(){
-        String type;
-
         try {
             BufferedReader reader = new BufferedReader(new FileReader("heroes.txt"));
             String line;
@@ -38,7 +36,41 @@ public class MainGameController {
                 heroList.add(hero);
             }
         }catch (IOException e){
-
+            //todo
         }
     }
+
+    //Start
+
+    public static void newGame(Hero hero){
+        MainGameController.heroList.add(hero);
+        MainGameController.player = MainGameController.heroList.get(MainGameController.heroList.size() - 1);
+        save.saveNewHero(hero);
+    }
+
+    //Game
+
+        //Move Checks
+        public static Enemy checkCollide(){
+            for (Enemy e: MainGameController.enemyList) {
+                if (e.getX() == MainGameController.player.getY() && e.getY() == MainGameController.player.getX() &&
+                        !(MainGameController.player.getY() == 0 || MainGameController.player.getY() == Map.mapSize - 1 ||
+                                MainGameController.player.getX() == 0 || MainGameController.player.getX() == Map.mapSize - 1)){
+                    return (e);
+                }
+            }
+            return (null);
+        }
+
+    public static boolean checkWin(){
+        if ( MainGameController.player.getY() == 0 || MainGameController.player.getY() == Map.mapSize - 1 ||
+                MainGameController.player.getX() == 0 || MainGameController.player.getX() == Map.mapSize - 1){
+            MainGameController.player.setXp(MainGameController.player.getXp() + 200);
+            MainGameController.save.saveGame(MainGameController.heroList);
+            return true;
+        }
+        return false;
+    }
+
+
 }

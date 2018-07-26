@@ -27,6 +27,9 @@ public class Battle extends JFrame {
     private JLabel playerAttack;
     private JLabel enemyDefence;
     private JLabel playerDefence;
+    private JButton okButton;
+    private JLabel enemyType;
+    private JButton continueButton;
 
     public Battle() {
         super("Battle");
@@ -37,6 +40,7 @@ public class Battle extends JFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         setVisible(true);
+
 
 
 

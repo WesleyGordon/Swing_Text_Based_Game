@@ -1,5 +1,6 @@
 package za.co.wethinkcode.swingy.view;
 
+import za.co.wethinkcode.swingy.Colors;
 import za.co.wethinkcode.swingy.controller.MainGameController;
 import za.co.wethinkcode.swingy.model.characters.Enemy;
 import za.co.wethinkcode.swingy.model.characters.Hero;
@@ -31,6 +32,23 @@ public class Map {
         }
     }
 
+    public static void printMap(){
+        int i = 0;
+        int k = 0;
+
+        map[MainGameController.player.getX()][MainGameController.player.getY()] = "#";
+        while(i < mapSize){
+            while (k < mapSize){
+                System.out.print(Colors.WHITE + map[i][k]);
+                System.out.print(" ");
+                k++;
+            }
+            k = 0;
+            i++;
+            System.out.print("\n");
+        }
+    }
+
     public static void printMap(JTextArea gameplayLog){
         int i = 0;
         int k = 0;
@@ -49,4 +67,6 @@ public class Map {
             gameplayLog.append("\n");
         }
     }
+
+
 }

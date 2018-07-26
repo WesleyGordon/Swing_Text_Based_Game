@@ -2,10 +2,12 @@ package za.co.wethinkcode.swingy.controller;
 
 import za.co.wethinkcode.swingy.model.characters.Hero;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Save {
     public static PrintWriter writer;
@@ -27,9 +29,9 @@ public class Save {
         writer.close();
     }
 
-    public void saveGame(ArrayList<Hero> heroes){
+    public void saveGame(List<Hero> heroes){
         try {
-            writer = new PrintWriter(new FileOutputStream("heroes.txt", true));
+            writer = new PrintWriter(new FileOutputStream("heroes.txt"));
 
         } catch (IOException exc){
             System.out.println("There was a problem writing to the file");

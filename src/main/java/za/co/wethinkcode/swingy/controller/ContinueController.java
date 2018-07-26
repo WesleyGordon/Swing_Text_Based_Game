@@ -1,9 +1,6 @@
 package za.co.wethinkcode.swingy.controller;
 
-import za.co.wethinkcode.swingy.Main;
 import za.co.wethinkcode.swingy.view.Continue;
-import za.co.wethinkcode.swingy.view.Game;
-import za.co.wethinkcode.swingy.view.Start;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -24,7 +21,6 @@ public class ContinueController {
             public void actionPerformed(ActionEvent e) {
                 StartController startController = new StartController();
                 continueView.dispose();
-                //continueView.setVisible(false);
             }
         });
 
@@ -42,8 +38,7 @@ public class ContinueController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 MainGameController.player = MainGameController.heroList.get(continueView.getList1().getSelectedIndex());
-                GameController gameController = new GameController();
-                //continueView.getRootPanelContinue().setVisible(false);
+                GuiController guiController = new GuiController();
                 continueView.dispose();
             }
         });

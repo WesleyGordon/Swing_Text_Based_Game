@@ -6,6 +6,8 @@ import za.co.wethinkcode.swingy.model.characters.Hero;
 
 import javax.swing.*;
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 @Getter
 @Setter
@@ -26,7 +28,6 @@ public class Game extends JFrame {
     private JLabel helmLabel;
     private JLabel weaponLabel;
     private JLabel armourLabel;
-    private JButton backButton;
     private JLabel nameLabel;
     private JLabel typeLabel;
 
@@ -47,5 +48,7 @@ public class Game extends JFrame {
         armourLabel.setText(player.getArmour());
         nameLabel.setText(player.getName());
         typeLabel.setText(player.getClass().getSimpleName());
+
+
     }
 }
