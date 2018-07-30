@@ -3,6 +3,7 @@ package za.co.wethinkcode.swingy.controller;
 import za.co.wethinkcode.swingy.model.characters.Hero;
 import za.co.wethinkcode.swingy.view.Start;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -20,10 +21,17 @@ public class StartController {
         startView.getNewGameButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                Hero hero = Hero.newHero(startView.getNameTextArea().getText(), startView.getHeroTypeSelect().getSelectedItem().toString());
-                MainGameController.newGame(hero);
-                GuiController guiController = new GuiController();
-                startView.dispose();
+                if (!startView.getNameTextArea().getText().contains(",") && startView.getNameTextArea().getText().length() > 4) {
+                    Hero hero = Hero.newHero(startView.getNameTextArea().getText(), startView.getHeroTypeSelect().getSelectedItem().toString());
+                    MainGameController.newGame(hero);
+                    GuiController guiController = new GuiController();
+                    startView.dispose();
+                }
+                else
+                {
+                    JFrame frame = new JFrame();
+                    JOptionPane.showMessageDialog(frame, "Invalid Input. Name must be more than 4 characters and cannot contain a ','.");
+                }
 
             }
 

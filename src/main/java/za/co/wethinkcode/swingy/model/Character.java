@@ -14,12 +14,16 @@ public abstract class Character {
     @NotNull
     public String name;
     public String type;
+    @Min(0)
     protected int attack;
+    @Min(0)
     protected int defence;
+    @Min(0)
     protected int hp;
 
     @Min(0)
     protected int x;
+    @Min(0)
     protected int y;
 
     @Min(0)

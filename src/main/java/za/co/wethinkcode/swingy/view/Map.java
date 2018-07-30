@@ -39,7 +39,11 @@ public class Map {
         map[MainGameController.player.getX()][MainGameController.player.getY()] = "#";
         while(i < mapSize){
             while (k < mapSize){
-                System.out.print(Colors.WHITE + map[i][k]);
+                if (map[i][k].equals("#")){
+                    System.out.print(Colors.RED + map[i][k]);
+                }else{
+                System.out.print(Colors.CYAN + map[i][k]);
+                }
                 System.out.print(" ");
                 k++;
             }

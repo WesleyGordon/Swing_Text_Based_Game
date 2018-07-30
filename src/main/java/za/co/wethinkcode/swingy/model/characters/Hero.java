@@ -3,9 +3,12 @@ package za.co.wethinkcode.swingy.model.characters;
 import lombok.Getter;
 import lombok.Setter;
 import za.co.wethinkcode.swingy.controller.EnemyController;
-import za.co.wethinkcode.swingy.controller.MainGameController;
+import za.co.wethinkcode.swingy.controller.ValidatorFactoryController;
 import za.co.wethinkcode.swingy.model.Character;
 import za.co.wethinkcode.swingy.view.Map;
+
+import java.io.IOException;
+import java.util.Random;
 
 @Getter
 @Setter
@@ -41,7 +44,15 @@ public abstract class Hero extends Character {
         this.defence = defence + level;
     }
 
-    public static Hero newHero(String name, String type, int level, int xp, String weapon, String armour, String helm){
+    public static Hero newHero(String name, String type, int level, int xp, String weapon, String armour, String helm) {
+        if (name.length() <= 4)
+        {
+            throw new RuntimeException("Name needs to be more than 4 characters");
+        }
+        if (!type.equalsIgnoreCase("sorcerer") && !type.equalsIgnoreCase("monk")
+                && !type.equalsIgnoreCase("scout") ) {
+            throw new RuntimeException("Type needs to be a Sorcerer, Monk, or a Scout");
+        }
         switch (type) {
             case "Monk":
                 return(new Monk(name, level, xp, weapon, armour, helm));
@@ -56,6 +67,14 @@ public abstract class Hero extends Character {
     }
 
     public static Hero newHero(String name, String type){
+        if (name.length() <= 4)
+        {
+            throw new RuntimeException("Name needs to be more than 4 characters");
+        }
+        if (!type.equalsIgnoreCase("sorcerer") && !type.equalsIgnoreCase("monk")
+                && !type.equalsIgnoreCase("scout") ) {
+            throw new RuntimeException("Type needs to be a Sorcerer, Monk, or a Scout");
+        }
         switch (type) {
             case "Monk":
                 return(new Monk(name));
@@ -82,9 +101,9 @@ public abstract class Hero extends Character {
         this.hp -= finalDamage;
     }
 
-    public boolean updateStats()
+    public boolean updateStats(Enemy en)
     {
-        this.setXp(this.getXp() + 123 * (this.level + 1));
+        this.setXp((int)(this.getXp() + (10 * en.getAttack() * 0.1) + (this.level * 50)));
         boolean f = checkLevelUp();
         return(f);
     }
@@ -133,4 +152,34 @@ public abstract class Hero extends Character {
         enemyController.moveEnemies(map);
         map.populateMap();
     }
+
+    public String randomWeapon(Enemy en)
+    {
+        int i = 0;
+        if (en.getClass().getSimpleName().equals("Dragon")){
+            i = 30;
+        }else if (en.getClass().getSimpleName().equals("Pegasus")) {
+            i = 15;
+        }else if (en.getClass().getSimpleName().equals("Werewolf")) {
+            i = 25;
+        }
+        int random = new Random().nextInt(i);
+            switch (random) {
+                case 1:
+                    this.setWeapon("Iron Sword");
+                    this.setAttack(this.getAttack() + 2);
+                    return (this.getWeapon());
+                case 2:
+                    this.setArmour("Iron Shield");
+                    this.setDefence(this.getDefence() + 2);
+                    return (this.getArmour());
+                case 3:
+                    this.setHelm("Iron Helmet");
+                    this.setHp(this.getHp() + 5);
+                    return (this.getHelm());
+                default:
+                    return ("");
+            }
+    }
+
 }

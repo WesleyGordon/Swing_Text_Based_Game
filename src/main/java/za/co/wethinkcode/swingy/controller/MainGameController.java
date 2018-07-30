@@ -30,14 +30,18 @@ public class MainGameController {
             BufferedReader reader = new BufferedReader(new FileReader("heroes.txt"));
             String line;
             while ((line = reader.readLine()) != null) {
+                if (line.equals("")){throw new NumberFormatException("Make sure there are no empty lines in the text file");}
                 Hero hero = Hero.newHero(line.split(",")[0], line.split(",")[1],
                         Integer.parseInt(line.split(",")[2]), Integer.parseInt(line.split(",")[3]),
                         line.split(",")[4], line.split(",")[5], line.split(",")[6]);
-                heroList.add(hero);
+                if (ValidatorFactoryController.runValidator(hero)) {
+                    heroList.add(hero);
+                }
             }
-        }catch (IOException e){
-            //todo
+        }catch (IOException e) {
+            System.out.println(e.toString());
         }
+
     }
 
     //Start
@@ -53,9 +57,7 @@ public class MainGameController {
         //Move Checks
         public static Enemy checkCollide(){
             for (Enemy e: MainGameController.enemyList) {
-                if (e.getX() == MainGameController.player.getY() && e.getY() == MainGameController.player.getX() &&
-                        !(MainGameController.player.getY() == 0 || MainGameController.player.getY() == Map.mapSize - 1 ||
-                                MainGameController.player.getX() == 0 || MainGameController.player.getX() == Map.mapSize - 1)){
+                if (e.getX() == MainGameController.player.getY() && e.getY() == MainGameController.player.getX()){
                     return (e);
                 }
             }
@@ -65,7 +67,6 @@ public class MainGameController {
     public static boolean checkWin(){
         if ( MainGameController.player.getY() == 0 || MainGameController.player.getY() == Map.mapSize - 1 ||
                 MainGameController.player.getX() == 0 || MainGameController.player.getX() == Map.mapSize - 1){
-            MainGameController.player.setXp(MainGameController.player.getXp() + 200);
             MainGameController.save.saveGame(MainGameController.heroList);
             return true;
         }

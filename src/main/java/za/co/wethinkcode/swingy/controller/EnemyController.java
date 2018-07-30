@@ -1,10 +1,8 @@
 package za.co.wethinkcode.swingy.controller;
 
-import za.co.wethinkcode.swingy.Main;
 import za.co.wethinkcode.swingy.model.characters.Enemy;
 import za.co.wethinkcode.swingy.view.Map;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class EnemyController {

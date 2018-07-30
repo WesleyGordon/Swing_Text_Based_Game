@@ -4,6 +4,7 @@ import za.co.wethinkcode.swingy.model.characters.Enemy;
 import za.co.wethinkcode.swingy.view.Battle;
 import za.co.wethinkcode.swingy.view.Map;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
@@ -63,7 +64,7 @@ public class BattleController {
         battleView.getContinueButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (MainGameController.player.updateStats() == true)
+                if (MainGameController.player.updateStats(enemy) == true)
                 {
                     GuiController.map = new Map(MainGameController.player);
                     GuiController.enemyController.initEnemies(GuiController.map);
@@ -82,6 +83,7 @@ public class BattleController {
     public void battle(){
         int enemyHP;
         int playerHP = 0;
+        String artefact;
         while (true) {
             if (MainGameController.player.getHp()  <= 0) {
                 battleView.getBattleLog().append("You're dead.\n");
@@ -94,10 +96,18 @@ public class BattleController {
             else if (enemy.getHp() <= 0) {
                 battleView.getBattleLog().append("You have destroyed the enemy\n");
                 MainGameController.enemyList.remove(enemy);
+                if((artefact = MainGameController.player.randomWeapon(enemy)) != "") {
+                    battleView.getBattleLog().append("You picked up a " + artefact);
+                }
                 battleView.getContinueButton().setVisible(true);
                 battleView.getAttackButton().setEnabled(false);
                 enemy.setHp(0);
                 MainGameController.player.setHp(100);
+                if(MainGameController.checkWin() ) {
+                    JFrame frame = new JFrame();
+                    JOptionPane.showMessageDialog(frame, "You win.");
+                    System.exit(0);
+                }
                 break;
             }
             else {

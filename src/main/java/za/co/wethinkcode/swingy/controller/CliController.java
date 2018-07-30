@@ -1,15 +1,11 @@
 package za.co.wethinkcode.swingy.controller;
 
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import za.co.wethinkcode.swingy.Colors;
 import za.co.wethinkcode.swingy.Main;
 import za.co.wethinkcode.swingy.model.characters.Enemy;
 import za.co.wethinkcode.swingy.model.characters.Hero;
-import za.co.wethinkcode.swingy.view.Game;
 import za.co.wethinkcode.swingy.view.Map;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -23,7 +19,6 @@ public class CliController {
     public void CliController(){
 
     }
-
 
     public static void start(){
         while(true) {
@@ -55,22 +50,28 @@ public class CliController {
     public static Hero createNewHero(){
         String name = "";
         String type = "";
-        while(name.equals("")) {
+        while(name.equals("") || (name.length() <= 4 || name.contains(","))) {
             System.out.println(Colors.YELLOW +  "Type your name: " );
             System.out.print(Colors.GREEN + "Name: " + Colors.RESET);
             name = scanner.nextLine();
-            while(true){
-                System.out.println(Colors.YELLOW +  "Select a hero: " );
-                System.out.print(Colors.GREEN + "Sorcerer/Scout/Monk: " + Colors.RESET);
-                type = scanner.nextLine();
-                if (type.toLowerCase().equals("scout") || type.toLowerCase().equals("sorcerer") || type.toLowerCase().equals("monk")){
-                    type.toLowerCase();
-                    type = type.substring(0, 1).toUpperCase() + type.substring(1);
-                    break;
+            if (name.length() > 4 && !name.contains(",")) {
+                while (true) {
+                    System.out.println(Colors.YELLOW + "Select a hero: ");
+                    System.out.print(Colors.GREEN + "Sorcerer/Scout/Monk: " + Colors.RESET);
+                    type = scanner.nextLine();
+                    if (type.toLowerCase().equals("scout") || type.toLowerCase().equals("sorcerer") || type.toLowerCase().equals("monk")) {
+                        type.toLowerCase();
+                        type = type.substring(0, 1).toUpperCase() + type.substring(1);
+                        break;
+                    }
                 }
+                return (Hero.newHero(name, type));
+
             }
+            else
+                System.out.println(Colors.RED + "Invalid input. Name must be more than 4 characters and may not contain a ','." + Colors.RESET);
         }
-        return (Hero.newHero(name, type));
+        return(Hero.newHero(name, type));
     }
 
     public static void gamePlay(){
@@ -94,6 +95,9 @@ public class CliController {
                     MainGameController.player.moveWest(map, enemyController);
                     doChecks();
                     break;
+                    default:
+                        System.out.println(Colors.RED + "Invalid input. Use N, E, S or W.");
+                        break;
             }
             System.out.print("\033[H\033[2J");
             System.out.flush();
@@ -146,34 +150,62 @@ public class CliController {
 
     public static void printContinueGame(){
         int option = MainGameController.heroList.size() + 5;
-        while(option > MainGameController.heroList.size() - 1){
-        int i = 0;
-        System.out.println(Colors.YELLOW +  "Select a saved hero: " );
-        for (Hero hero:MainGameController.heroList) {
-            System.out.println(Colors.GREEN + i + ": " + hero.getName() + "\t\t\tType: " + hero.getClass().getSimpleName() + "\t\t\tLevel: " + hero.getLevel() + "\t\t\tExperience: " + hero.getXp());
-            i++;
+        while(option > MainGameController.heroList.size() - 1 || option < 0){
+            int i = 0;
+            System.out.println(Colors.YELLOW +  "Select a saved hero: " );
+            for (Hero hero:MainGameController.heroList) {
+                System.out.println(Colors.GREEN + i + ": " + hero.getName() + "\t\t\tType: " + hero.getClass().getSimpleName() + "\t\t\tLevel: " + hero.getLevel() + "\t\t\tExperience: " + hero.getXp());
+                i++;
+            }
+            System.out.println("Choose a number between 0 and " + (MainGameController.heroList.size() - 1) + ":");
+                try {
+                    option = Integer.parseInt(scanner.nextLine());
+                }
+                catch (NumberFormatException e)
+                {
+                    System.out.println(Colors.RED + "Must be a number (between 0 and "  + (MainGameController.heroList.size() - 1) + ")" + Colors.RESET);
+                }
+                if (option < 0)
+                    System.out.println(Colors.RED + "Number must be positive"  + Colors.RESET);
+                else if (option > (MainGameController.heroList.size() - 1)) {
+                    System.out.println(Colors.RED + "Number must be less than" + MainGameController.heroList.size() + Colors.RESET);
+                }
+                    else
+                    MainGameController.player = MainGameController.heroList.get(option);
+
         }
-        System.out.println("Choose a number between 0 and " + (MainGameController.heroList.size() - 1) + ":");
-        option = Integer.parseInt(scanner.nextLine());
-        }
-        MainGameController.player = MainGameController.heroList.get(option);
+
+
     }
 
     public static void doChecks(){
         Enemy en = MainGameController.checkCollide();
+        String choice;
         if (en != null){
-            System.out.println(Colors.RED + "You have encountered an enemy. \nBattle(B) or Flee(F)?");
             printBattleStats(en);
-            switch (scanner.nextLine().toUpperCase()){
-                case "B":
-                    battle(en);
+            System.out.println(Colors.RED + "You have encountered an enemy. \nBattle(B) or Flee(F)?");
+            while(true){
+                choice = scanner.nextLine().toUpperCase();
+                switch (choice){
+                    case "B":
+                        battle(en);
+                        break;
+                    case "F":
+                        attemptFlee(en);
+                        break;
+                    default:
+                        System.out.println(Colors.RED + "Use B or F.");
+                        break;
+                }
+                if (choice.equals("B") || choice.equals("F")){
                     break;
-                case "F":
-                    attemptFlee(en);
-                    break;
+                }
             }
         }
-        if(MainGameController.checkWin()){
+        else if(MainGameController.checkWin()){
+            System.out.print("\033[H\033[2J");
+            MainGameController.player.checkLevelUp();
+            printStats();
             System.out.println(Colors.PURPLE + "Y" + Colors.RED + "O" + Colors.CYAN +"U" + Colors.YELLOW + " W" + Colors.RED + "I" + Colors.CYAN +  "N" );
             System.exit(0);
         }
@@ -182,10 +214,13 @@ public class CliController {
     public static void battle(Enemy en){
         int enemyHP;
         int playerHP = 0;
+        String artefact;
         while (true) {
             if (MainGameController.player.getHp()  <= 0) {
                 System.out.println("YOU DIED!");
                 MainGameController.player.setHp(0);
+                MainGameController.save.saveGame(MainGameController.heroList);
+
                 System.exit(0);
                 break;
             }
@@ -194,10 +229,25 @@ public class CliController {
                 MainGameController.enemyList.remove(en);
                 en.setHp(0);
                 MainGameController.player.setHp(100);
-                MainGameController.player.updateStats();
+                if ((artefact = MainGameController.player.randomWeapon(en)) != "")
+                {
+                    System.out.println(Colors.YELLOW + "You found a " + artefact + "!");
+                    System.out.print(Colors.GREEN + "Press any key to pick it up.");
 
+                }
+                if (MainGameController.player.updateStats(en)){
+                    map = new Map(MainGameController.player);
+                    enemyController.initEnemies(map);
+                    map.populateMap();
+                    MainGameController.save.saveGame(MainGameController.heroList);
+                }
                 System.out.print(Colors.GREEN + "Press any key to continue.");
                 scanner.nextLine();
+                if(MainGameController.checkWin()){
+                    System.out.println(Colors.PURPLE + "Y" + Colors.RED + "O" + Colors.CYAN +"U" + Colors.YELLOW + " W" + Colors.RED + "I" + Colors.CYAN +  "N" );
+                    MainGameController.save.saveGame(MainGameController.heroList);
+                    System.exit(0);
+                }
                 break;
             }
             else {
@@ -222,8 +272,11 @@ public class CliController {
         int random = new Random().nextInt(2);
         switch (random){
             case 1:
-                System.out.println(Colors.RED + "You were unable to flee you have to fight!");
+                System.out.println(Colors.RED + "You were unable to flee you have to fight! Press any key to continue.");
+                scanner.nextLine();
                 battle(en);
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
                 break;
             case 0:
                 break;

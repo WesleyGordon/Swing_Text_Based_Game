@@ -1,7 +1,5 @@
 package za.co.wethinkcode.swingy.controller;
 
-import lombok.Getter;
-import lombok.Setter;
 import za.co.wethinkcode.swingy.model.characters.Enemy;
 import za.co.wethinkcode.swingy.view.Game;
 import za.co.wethinkcode.swingy.view.Map;
@@ -12,8 +10,6 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-@Getter
-@Setter
 public class GuiController {
 
     public static Game gameView = new Game(MainGameController.player);
@@ -75,6 +71,9 @@ public class GuiController {
             public void propertyChange(PropertyChangeEvent evt) {
                 gameView.getXpLabel().setText(Integer.toString(MainGameController.player.getXp()));
                 gameView.getLevelLabel().setText(Integer.toString(MainGameController.player.getLevel()));
+                gameView.getWeaponLabel().setText(MainGameController.player.getWeapon());
+                gameView.getArmourLabel().setText(MainGameController.player.getArmour());
+                gameView.getHelmLabel().setText(MainGameController.player.getHelm());
             }
         });
     }
@@ -85,7 +84,7 @@ public class GuiController {
             gameView.setVisible(false);
             BattleController battleController = new BattleController(en);
         }
-        if(MainGameController.checkWin()){
+        else if(MainGameController.checkWin() ){
             JFrame frame = new JFrame();
             JOptionPane.showMessageDialog(frame, "You win.");
             System.exit(0);
