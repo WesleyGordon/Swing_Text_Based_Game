@@ -1,5 +1,6 @@
 package za.co.wethinkcode.swingy.controller;
 
+import za.co.wethinkcode.swingy.Main;
 import za.co.wethinkcode.swingy.model.characters.Enemy;
 import za.co.wethinkcode.swingy.view.Battle;
 import za.co.wethinkcode.swingy.view.Map;
@@ -98,6 +99,7 @@ public class BattleController {
                 MainGameController.enemyList.remove(enemy);
                 if((artefact = MainGameController.player.randomWeapon(enemy)) != "") {
                     battleView.getBattleLog().append("You picked up a " + artefact);
+                    MainGameController.save.saveGame(MainGameController.heroList);
                 }
                 battleView.getContinueButton().setVisible(true);
                 battleView.getAttackButton().setEnabled(false);

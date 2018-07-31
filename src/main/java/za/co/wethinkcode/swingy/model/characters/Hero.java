@@ -155,30 +155,35 @@ public abstract class Hero extends Character {
 
     public String randomWeapon(Enemy en)
     {
-        int i = 0;
-        if (en.getClass().getSimpleName().equals("Dragon")){
-            i = 30;
-        }else if (en.getClass().getSimpleName().equals("Pegasus")) {
-            i = 15;
-        }else if (en.getClass().getSimpleName().equals("Werewolf")) {
-            i = 25;
-        }
+        int i = 4;
         int random = new Random().nextInt(i);
-            switch (random) {
-                case 1:
+        switch (random) {
+            case 1:
+                if (!(this.getWeapon().equals("Iron Sword"))){
                     this.setWeapon("Iron Sword");
                     this.setAttack(this.getAttack() + 2);
                     return (this.getWeapon());
-                case 2:
+                }
+                else
+                    return "";
+            case 2:
+                if (!(this.getArmour().equals("Iron Shield"))) {
                     this.setArmour("Iron Shield");
                     this.setDefence(this.getDefence() + 2);
                     return (this.getArmour());
-                case 3:
+                }
+                else
+                    return "";
+            case 3:
+                if(!(this.getHelm().equals("Iron Helmet"))) {
                     this.setHelm("Iron Helmet");
                     this.setHp(this.getHp() + 5);
                     return (this.getHelm());
+                }
+                else
+                    return "";
                 default:
-                    return ("");
+                    return "";
             }
     }
 

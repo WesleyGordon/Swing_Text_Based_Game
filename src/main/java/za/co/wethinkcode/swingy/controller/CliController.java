@@ -231,9 +231,9 @@ public class CliController {
                 MainGameController.player.setHp(100);
                 if ((artefact = MainGameController.player.randomWeapon(en)) != "")
                 {
-                    System.out.println(Colors.YELLOW + "You found a " + artefact + "!");
+                    System.out.println(Colors.YELLOW + "You found an " + artefact + "!");
                     System.out.print(Colors.GREEN + "Press any key to pick it up.");
-
+                    MainGameController.save.saveGame(MainGameController.heroList);
                 }
                 if (MainGameController.player.updateStats(en)){
                     map = new Map(MainGameController.player);

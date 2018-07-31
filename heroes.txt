@@ -1,4 +1,7 @@
 Wesley,Scout,1,1798,Wooden dagger,Leather vest,Leather helm
-Eduard,Scout,3,4916,Iron Sword,Leather vest,Leather helm
+Eduard,Scout,3,7548,Iron Sword,Iron Shield,Iron Helmet
 dkaplan,Scout,1,1673,Iron Sword,Iron Shield,Leather helm
 dkaplan,Scout,0,1199,Iron Sword,Iron Shield,Leather helm
+blabla,Sorcerer,0,35,Iron Sword,Leather chest plate,Leather hat
+sadfg,Sorcerer,0,0,Wooden wand,Leather chest plate,Leather hat
+sfdybnvadfva,Monk,0,140,Iron Sword,Iron Shield,Iron Helmet
